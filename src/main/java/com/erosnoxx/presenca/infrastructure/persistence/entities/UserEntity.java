@@ -3,6 +3,8 @@ package com.erosnoxx.presenca.infrastructure.persistence.entities;
 import com.erosnoxx.presenca.core.domain.enums.Role;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.common.JpaEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,8 @@ import java.util.UUID;
 public class UserEntity extends JpaEntity<UUID> implements UserDetails {
     private String username;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override

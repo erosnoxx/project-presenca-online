@@ -6,8 +6,9 @@ CREATE TABLE users (
     username VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     role VARCHAR(20) NOT NULL,
-
-    CONSTRAINT chk_role CHECK (role IN ('ADMIN', 'USER')),
-)
+    created_at TIMESTAMP DEFAULT now(),
+    updated_at TIMESTAMP DEFAULT now(),
+    CONSTRAINT chk_role CHECK (role IN ('ADMIN', 'USER'))
+);
 
 CREATE INDEX idx_users_email ON users(username);
