@@ -1,5 +1,6 @@
 package com.erosnoxx.presenca.infrastructure.persistence.entities;
 
+import com.erosnoxx.presenca.core.domain.enums.Role;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.common.JpaEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -19,10 +21,17 @@ import java.util.UUID;
 public class UserEntity extends JpaEntity<UUID> implements UserDetails {
     private String username;
     private String password;
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return switch(role) {
+            case ADMIN -> List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN)"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+            case USER -> List.of(
+                    new SimpleGrantedAuthority("ROLE_USER"));
+        };
     }
 
     @Override
