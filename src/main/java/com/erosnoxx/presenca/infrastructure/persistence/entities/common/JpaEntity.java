@@ -1,5 +1,6 @@
 package com.erosnoxx.presenca.infrastructure.persistence.entities.common;
 
+import com.erosnoxx.presenca.core.application.contracts.repositories.common.Persistence;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +8,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @MappedSuperclass @Getter @Setter
-public abstract class JpaEntity<I> {
+public abstract class JpaEntity<I> implements Persistence<I> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private I id;
