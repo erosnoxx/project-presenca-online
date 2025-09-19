@@ -1,6 +1,6 @@
-package com.erosnoxx.presenca.api.schemas.response;
+package com.erosnoxx.presenca.api.schemas.response.auth;
 
-import com.erosnoxx.presenca.core.application.commands.output.LoginOutputCommand;
+import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCommand;
 
 import java.time.ZonedDateTime;
 

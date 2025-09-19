@@ -1,4 +1,4 @@
-package com.erosnoxx.presenca.core.application.commands.output;
+package com.erosnoxx.presenca.core.application.commands.output.auth;
 
 import java.time.ZonedDateTime;
 

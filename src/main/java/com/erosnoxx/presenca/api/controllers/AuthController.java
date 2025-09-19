@@ -1,8 +1,8 @@
 package com.erosnoxx.presenca.api.controllers;
 
-import com.erosnoxx.presenca.api.schemas.request.LoginRequest;
-import com.erosnoxx.presenca.api.schemas.response.LoginResponse;
-import com.erosnoxx.presenca.core.application.contracts.usecases.LoginUseCase;
+import com.erosnoxx.presenca.api.schemas.request.auth.LoginRequest;
+import com.erosnoxx.presenca.api.schemas.response.auth.LoginResponse;
+import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

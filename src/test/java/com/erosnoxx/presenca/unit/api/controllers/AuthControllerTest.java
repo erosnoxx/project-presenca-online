@@ -1,11 +1,11 @@
 package com.erosnoxx.presenca.unit.api.controllers;
 
 import com.erosnoxx.presenca.api.controllers.AuthController;
-import com.erosnoxx.presenca.api.schemas.request.LoginRequest;
-import com.erosnoxx.presenca.api.schemas.response.LoginResponse;
-import com.erosnoxx.presenca.core.application.commands.input.LoginInputCommand;
-import com.erosnoxx.presenca.core.application.commands.output.LoginOutputCommand;
-import com.erosnoxx.presenca.core.application.contracts.usecases.LoginUseCase;
+import com.erosnoxx.presenca.api.schemas.request.auth.LoginRequest;
+import com.erosnoxx.presenca.api.schemas.response.auth.LoginResponse;
+import com.erosnoxx.presenca.core.application.commands.input.auth.LoginInputCommand;
+import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCommand;
+import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

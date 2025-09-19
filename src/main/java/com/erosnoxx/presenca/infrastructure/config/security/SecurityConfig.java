@@ -33,7 +33,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(SecurityMatcher.getPublicEndpoints()).permitAll()
-                        .requestMatchers(SecurityMatcher.getProtectedEndpoints()).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class);

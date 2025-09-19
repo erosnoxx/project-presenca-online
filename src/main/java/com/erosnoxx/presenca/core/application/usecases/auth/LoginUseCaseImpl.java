@@ -1,11 +1,10 @@
-package com.erosnoxx.presenca.core.application.usecases;
+package com.erosnoxx.presenca.core.application.usecases.auth;
 
-import com.erosnoxx.presenca.core.application.commands.input.LoginInputCommand;
-import com.erosnoxx.presenca.core.application.commands.output.LoginOutputCommand;
+import com.erosnoxx.presenca.core.application.commands.input.auth.LoginInputCommand;
+import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCommand;
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.services.AuthenticatorService;
-import com.erosnoxx.presenca.core.application.contracts.usecases.LoginUseCase;
-import com.erosnoxx.presenca.core.domain.checkers.UserChecker;
+import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;
 import org.springframework.stereotype.Service;
 

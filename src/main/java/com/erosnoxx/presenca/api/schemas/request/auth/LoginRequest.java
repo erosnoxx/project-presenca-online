@@ -1,6 +1,6 @@
-package com.erosnoxx.presenca.api.schemas.request;
+package com.erosnoxx.presenca.api.schemas.request.auth;
 
-import com.erosnoxx.presenca.core.application.commands.input.LoginInputCommand;
+import com.erosnoxx.presenca.core.application.commands.input.auth.LoginInputCommand;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
