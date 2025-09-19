@@ -42,7 +42,7 @@ public class RestExceptionHandler {
     public ProblemDetail handleAuthenticationException(AuthenticationException ex) {
         var pb = ProblemDetail.forStatus(HttpStatus.FORBIDDEN);
         pb.setTitle("access denied");
-        pb.setDetail(ex.getMessage());
+        pb.setDetail("invalid username or password");
         return pb;
     }
 
