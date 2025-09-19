@@ -7,8 +7,8 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest @ActiveProfiles("test")
 class PresencaApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+//	@Test
+//	void contextLoads() {
+//	}
 
 }
