@@ -26,7 +26,7 @@ public class AuthenticatorServiceImpl implements AuthenticatorService {
         var usernamePassword = new UsernamePasswordAuthenticationToken(
                 username, password);
 
-        Authentication auth = authenticationManager.authenticate(usernamePassword);
+        var auth = authenticationManager.authenticate(usernamePassword);
 
         return tokenService.generateToken((UserEntity) auth.getPrincipal());
     }

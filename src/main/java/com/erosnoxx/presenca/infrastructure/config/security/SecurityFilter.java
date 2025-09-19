@@ -27,6 +27,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+
         var token = this.recoverToken(request);
         if (token != null) {
             var username = this.tokenService.validateToken(token);

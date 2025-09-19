@@ -36,36 +36,6 @@ public class SecurityConfig {
                         .requestMatchers(SecurityMatcher.getProtectedEndpoints()).hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
-                .exceptionHandling(exception -> exception
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.setContentType("application/json");
-                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-
-                            var json = String.format(
-                                    "{\"timestamp\":\"%s\", \"status\":403, \"error\":\"Forbidden\", " +
-                                            "\"message\":\"Access denied: ADMIN role required\", " +
-                                            "\"path\":\"%s\"}",
-                                    java.time.Instant.now().toString(),
-                                    request.getRequestURI()
-                            );
-
-                            response.getWriter().write(json);
-                        })
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.setContentType("application/json");
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
-                            var json = String.format(
-                                    "{\"timestamp\":\"%s\", \"status\":401, \"error\":\"Unauthorized\", " +
-                                            "\"message\":\"User is not authenticated\", " +
-                                            "\"path\":\"%s\"}",
-                                    java.time.Instant.now().toString(),
-                                    request.getRequestURI()
-                            );
-
-                            response.getWriter().write(json);
-                        })
-                )
                 .addFilterBefore(this.securityFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
