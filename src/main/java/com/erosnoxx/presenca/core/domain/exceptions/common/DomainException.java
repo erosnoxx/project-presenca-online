@@ -9,4 +9,9 @@ public class DomainException extends RuntimeException {
         pb.setTitle("Business rule error");
         return pb;
     }
+
+    @Override
+    public String getMessage() {
+        return this.toProblemDetail().getDetail();
+    }
 }
