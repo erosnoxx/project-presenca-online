@@ -6,6 +6,9 @@ import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
+
 
 @RestControllerAdvice
 public class RestExceptionHandler {
@@ -24,6 +27,22 @@ public class RestExceptionHandler {
         var pb = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
         pb.setTitle("Your request parameters didn't validate.");
         pb.setProperty("invalid-params", fieldErrors);
+        return pb;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ProblemDetail handleAccessDeniedException(AccessDeniedException ex) {
+        var pb = ProblemDetail.forStatus(HttpStatus.FORBIDDEN);
+        pb.setTitle("access denied");
+        pb.setDetail(ex.getMessage());
+        return pb;
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ProblemDetail handleAuthenticationException(AuthenticationException ex) {
+        var pb = ProblemDetail.forStatus(HttpStatus.FORBIDDEN);
+        pb.setTitle("access denied");
+        pb.setDetail(ex.getMessage());
         return pb;
     }
 
