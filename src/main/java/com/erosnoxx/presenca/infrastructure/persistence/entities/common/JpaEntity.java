@@ -7,10 +7,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @MappedSuperclass @Getter @Setter
-public abstract class JpaEntity<ID> {
+public abstract class JpaEntity<I> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private ID id;
+    private I id;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
