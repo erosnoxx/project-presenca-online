@@ -1,12 +1,11 @@
 package com.erosnoxx.presenca.infrastructure.services;
 
 import com.erosnoxx.presenca.core.application.contracts.services.AuthenticatorService;
-import com.erosnoxx.presenca.core.application.dto.TokenPair;
+import com.erosnoxx.presenca.core.application.dto.auth.TokenPair;
 import com.erosnoxx.presenca.infrastructure.config.auth.TokenService;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.UserEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service

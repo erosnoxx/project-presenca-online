@@ -3,7 +3,7 @@ package com.erosnoxx.presenca.unit.application.usecases;
 import com.erosnoxx.presenca.core.application.commands.input.auth.LoginInputCommand;
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.services.AuthenticatorService;
-import com.erosnoxx.presenca.core.application.dto.TokenPair;
+import com.erosnoxx.presenca.core.application.dto.auth.TokenPair;
 import com.erosnoxx.presenca.core.application.usecases.auth.LoginUseCaseImpl;
 import com.erosnoxx.presenca.core.domain.entities.User;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;

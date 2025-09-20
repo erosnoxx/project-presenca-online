@@ -1,6 +1,6 @@
 package com.erosnoxx.presenca.core.application.contracts.services;
 
-import com.erosnoxx.presenca.core.application.dto.TokenPair;
+import com.erosnoxx.presenca.core.application.dto.auth.TokenPair;
 
 public interface AuthenticatorService {
     TokenPair validateCredentials(String username, String password);

@@ -1,4 +1,4 @@
-package com.erosnoxx.presenca.core.application.dto;
+package com.erosnoxx.presenca.core.application.dto.auth;
 
 import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCommand;
 
