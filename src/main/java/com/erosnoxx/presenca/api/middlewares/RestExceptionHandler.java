@@ -46,5 +46,13 @@ public class RestExceptionHandler {
         return pb;
     }
 
+    @ExceptionHandler(Exception.class)
+    public ProblemDetail handleException(Exception ex) {
+        var pb = ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+        pb.setTitle("internal server error");
+        pb.setDetail(ex.getMessage());
+        return pb;
+    }
+
     private record InvalidParam(String name, String reason) {}
 }
