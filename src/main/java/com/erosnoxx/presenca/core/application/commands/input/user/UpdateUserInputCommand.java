@@ -9,11 +9,11 @@ public record UpdateUserInputCommand(
         Optional<String> password) {
     public static UpdateUserInputCommand of(
             UUID id,
-            String username,
-            String password) {
+            Optional<String> username,
+            Optional<String> password) {
         return new UpdateUserInputCommand(
                 id,
-                Optional.of(username),
-                Optional.of(password));
+                username,
+                password);
     }
 }

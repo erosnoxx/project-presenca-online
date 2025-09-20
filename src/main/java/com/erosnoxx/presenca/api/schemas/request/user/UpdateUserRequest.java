@@ -1,8 +1,8 @@
 package com.erosnoxx.presenca.api.schemas.request.user;
 
-import jakarta.annotation.Nullable;
+import java.util.Optional;
 
 public record UpdateUserRequest(
-        @Nullable String username,
-        @Nullable String password) {
+        Optional<String> username,
+        Optional<String> password) {
 }

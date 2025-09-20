@@ -82,7 +82,7 @@ public class UserController {
     @PatchMapping("/{id}") @UserOnly
     public ResponseEntity<UUIDResponse> updateUser(
             @PathVariable UUID id,
-            @RequestBody @Valid UpdateUserRequest request) {
+            @RequestBody UpdateUserRequest request) {
         return ResponseEntity.ok(UUIDResponse.fromOutput(
                 updateUserUseCase.execute(UpdateUserInputCommand.of(
                         id, request.username(), request.password()
