@@ -3,10 +3,7 @@ package com.erosnoxx.presenca.api.controllers;
 import com.erosnoxx.presenca.api.schemas.request.user.CreateUserRequest;
 import com.erosnoxx.presenca.api.schemas.request.user.UpdateUserRequest;
 import com.erosnoxx.presenca.api.schemas.response.common.UUIDResponse;
-import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByIdInputCommand;
-import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByUsernameInputCommand;
-import com.erosnoxx.presenca.core.application.commands.input.user.GetUsersInputCommand;
-import com.erosnoxx.presenca.core.application.commands.input.user.UpdateUserInputCommand;
+import com.erosnoxx.presenca.core.application.commands.input.user.*;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.*;
 import com.erosnoxx.presenca.core.application.dto.user.UserDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
@@ -26,18 +23,21 @@ public class UserController {
     private final GetUserByIdUseCase getUserByIdUseCase;
     private final GetUserByUsernameUseCase getUserByUsernameUseCase;
     private final UpdateUserUseCase updateUserUseCase;
+    private final DeleteUserUseCase deleteUserUseCase;
 
     public UserController(
             CreateUserUseCase createUserUseCase,
             GetUsersUseCase getUsersUseCase,
             GetUserByIdUseCase getUserByIdUseCase,
             GetUserByUsernameUseCase getUserByUsernameUseCase,
-            UpdateUserUseCase updateUserUseCase) {
+            UpdateUserUseCase updateUserUseCase,
+            DeleteUserUseCase deleteUserUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.getUsersUseCase = getUsersUseCase;
         this.getUserByIdUseCase = getUserByIdUseCase;
         this.getUserByUsernameUseCase = getUserByUsernameUseCase;
         this.updateUserUseCase = updateUserUseCase;
+        this.deleteUserUseCase = deleteUserUseCase;
     }
 
     @PostMapping @AdminOnly
@@ -88,5 +88,11 @@ public class UserController {
                         id, request.username(), request.password()
                 ))
         ));
+    }
+
+    @DeleteMapping("/{id}") @AdminOnly
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
+        deleteUserUseCase.execute(DeleteUserInputCommand.of(id));
+        return ResponseEntity.noContent().build();
     }
 }
