@@ -1,14 +1,13 @@
 package com.erosnoxx.presenca.api.controllers;
 
 import com.erosnoxx.presenca.api.schemas.request.user.CreateUserRequest;
+import com.erosnoxx.presenca.api.schemas.request.user.UpdateUserRequest;
 import com.erosnoxx.presenca.api.schemas.response.common.UUIDResponse;
 import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByIdInputCommand;
 import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByUsernameInputCommand;
 import com.erosnoxx.presenca.core.application.commands.input.user.GetUsersInputCommand;
-import com.erosnoxx.presenca.core.application.contracts.usecases.users.CreateUserUseCase;
-import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByIdUseCase;
-import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByUsernameUseCase;
-import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUsersUseCase;
+import com.erosnoxx.presenca.core.application.commands.input.user.UpdateUserInputCommand;
+import com.erosnoxx.presenca.core.application.contracts.usecases.users.*;
 import com.erosnoxx.presenca.core.application.dto.user.UserDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
 import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
@@ -26,16 +25,19 @@ public class UserController {
     private final GetUsersUseCase getUsersUseCase;
     private final GetUserByIdUseCase getUserByIdUseCase;
     private final GetUserByUsernameUseCase getUserByUsernameUseCase;
+    private final UpdateUserUseCase updateUserUseCase;
 
     public UserController(
             CreateUserUseCase createUserUseCase,
             GetUsersUseCase getUsersUseCase,
             GetUserByIdUseCase getUserByIdUseCase,
-            GetUserByUsernameUseCase getUserByUsernameUseCase) {
+            GetUserByUsernameUseCase getUserByUsernameUseCase,
+            UpdateUserUseCase updateUserUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.getUsersUseCase = getUsersUseCase;
         this.getUserByIdUseCase = getUserByIdUseCase;
         this.getUserByUsernameUseCase = getUserByUsernameUseCase;
+        this.updateUserUseCase = updateUserUseCase;
     }
 
     @PostMapping @AdminOnly
@@ -75,5 +77,16 @@ public class UserController {
                 getUserByUsernameUseCase.execute(GetUserByUsernameInputCommand.of(username))
                         .user()
         );
+    }
+
+    @PatchMapping("/{id}") @UserOnly
+    public ResponseEntity<UUIDResponse> updateUser(
+            @PathVariable UUID id,
+            @RequestBody @Valid UpdateUserRequest request) {
+        return ResponseEntity.ok(UUIDResponse.fromOutput(
+                updateUserUseCase.execute(UpdateUserInputCommand.of(
+                        id, request.username(), request.password()
+                ))
+        ));
     }
 }
