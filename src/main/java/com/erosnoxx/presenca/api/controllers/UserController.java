@@ -8,10 +8,12 @@ import com.erosnoxx.presenca.core.application.contracts.usecases.users.*;
 import com.erosnoxx.presenca.core.application.dto.user.UserDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
 import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
+import com.erosnoxx.presenca.infrastructure.persistence.entities.UserEntity;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.UUID;
@@ -94,5 +96,17 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         deleteUserUseCase.execute(DeleteUserInputCommand.of(id));
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/me") @UserOnly
+    public ResponseEntity<UserDto> getCurrentUser(@AuthenticationPrincipal UserEntity user) {
+        return ResponseEntity.ok(
+                new UserDto(
+                        user.getId(),
+                        user.getUsername(),
+                        user.getRole(),
+                        user.getCreatedAt(),
+                        user.getUpdatedAt())
+        );
     }
 }

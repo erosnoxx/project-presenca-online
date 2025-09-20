@@ -6,6 +6,7 @@ import com.erosnoxx.presenca.api.schemas.response.auth.LoginResponse;
 import com.erosnoxx.presenca.core.application.commands.input.auth.LoginInputCommand;
 import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCommand;
 import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
+import com.erosnoxx.presenca.core.application.contracts.usecases.auth.RefreshTokenUseCase;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -19,7 +20,9 @@ import static org.mockito.ArgumentMatchers.any;
 class AuthControllerTest {
 
     private final LoginUseCase loginUseCase = Mockito.mock(LoginUseCase.class);
-    private final AuthController controller = new AuthController(loginUseCase);
+    private final RefreshTokenUseCase refreshTokenUseCase = Mockito.mock(RefreshTokenUseCase.class);
+    private final AuthController controller = new AuthController(
+            loginUseCase, refreshTokenUseCase);
 
     @Test
     void shouldReturnResponseEntityWithLoginResponse() {
