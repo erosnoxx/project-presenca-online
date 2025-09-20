@@ -4,7 +4,7 @@ import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByIdInp
 import com.erosnoxx.presenca.core.application.commands.output.user.GetUserByIdOutputCommand;
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByIdUseCase;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +19,7 @@ public class GetUserByIdUseCaseImpl implements GetUserByIdUseCase {
     public GetUserByIdOutputCommand execute(GetUserByIdInputCommand input) {
         var user = repository.findById(input.id())
                 .orElseThrow(() ->
-                        new UsernameNotFoundException(
+                        new UserNotFoundException(
                                 "user not found with id: " + input.id()));
 
         return GetUserByIdOutputCommand.of(user);
