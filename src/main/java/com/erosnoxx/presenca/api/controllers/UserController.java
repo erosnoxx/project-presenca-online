@@ -2,22 +2,40 @@ package com.erosnoxx.presenca.api.controllers;
 
 import com.erosnoxx.presenca.api.schemas.request.user.CreateUserRequest;
 import com.erosnoxx.presenca.api.schemas.response.common.UUIDResponse;
+import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByIdInputCommand;
+import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByUsernameInputCommand;
+import com.erosnoxx.presenca.core.application.commands.input.user.GetUsersInputCommand;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.CreateUserUseCase;
+import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByIdUseCase;
+import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByUsernameUseCase;
+import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUsersUseCase;
+import com.erosnoxx.presenca.core.application.dto.user.UserDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
+import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import java.util.UUID;
 
 @RestController @RequestMapping("users")
 public class UserController {
     private final CreateUserUseCase createUserUseCase;
+    private final GetUsersUseCase getUsersUseCase;
+    private final GetUserByIdUseCase getUserByIdUseCase;
+    private final GetUserByUsernameUseCase getUserByUsernameUseCase;
 
-    public UserController(CreateUserUseCase createUserUseCase) {
+    public UserController(
+            CreateUserUseCase createUserUseCase,
+            GetUsersUseCase getUsersUseCase,
+            GetUserByIdUseCase getUserByIdUseCase,
+            GetUserByUsernameUseCase getUserByUsernameUseCase) {
         this.createUserUseCase = createUserUseCase;
+        this.getUsersUseCase = getUsersUseCase;
+        this.getUserByIdUseCase = getUserByIdUseCase;
+        this.getUserByUsernameUseCase = getUserByUsernameUseCase;
     }
 
     @PostMapping @AdminOnly
@@ -33,5 +51,29 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).body(response);
+    }
+
+    @GetMapping @UserOnly
+    public ResponseEntity<Page<UserDto>> getUsers(Pageable pageable) {
+        return ResponseEntity.ok(
+                getUsersUseCase.execute(GetUsersInputCommand.of(pageable))
+                        .users()
+        );
+    }
+
+    @GetMapping("/{id}") @UserOnly
+    public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
+        return ResponseEntity.ok(
+                getUserByIdUseCase.execute(GetUserByIdInputCommand.of(id))
+                        .user()
+        );
+    }
+
+    @GetMapping("/search") @UserOnly
+    public ResponseEntity<UserDto> getUserByUsername(@RequestParam String username) {
+        return ResponseEntity.ok(
+                getUserByUsernameUseCase.execute(GetUserByUsernameInputCommand.of(username))
+                        .user()
+        );
     }
 }
