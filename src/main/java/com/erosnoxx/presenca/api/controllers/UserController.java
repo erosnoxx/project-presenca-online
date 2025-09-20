@@ -57,7 +57,7 @@ public class UserController {
         return ResponseEntity.created(location).body(response);
     }
 
-    @GetMapping @UserOnly
+    @GetMapping @AdminOnly
     public ResponseEntity<Page<UserDto>> getUsers(Pageable pageable) {
         return ResponseEntity.ok(
                 getUsersUseCase.execute(GetUsersInputCommand.of(pageable))
@@ -65,7 +65,7 @@ public class UserController {
         );
     }
 
-    @GetMapping("/{id}") @UserOnly
+    @GetMapping("/{id}") @AdminOnly
     public ResponseEntity<UserDto> getUserById(@PathVariable UUID id) {
         return ResponseEntity.ok(
                 getUserByIdUseCase.execute(GetUserByIdInputCommand.of(id))

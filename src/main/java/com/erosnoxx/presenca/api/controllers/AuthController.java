@@ -6,6 +6,7 @@ import com.erosnoxx.presenca.api.schemas.response.auth.LoginResponse;
 import com.erosnoxx.presenca.api.schemas.response.auth.RefreshTokenResponse;
 import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
 import com.erosnoxx.presenca.core.application.contracts.usecases.auth.RefreshTokenUseCase;
+import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class AuthController {
                         .fromOutput(loginUseCase.execute(request.toInput())));
     }
 
-    @PostMapping("refresh")
+    @PostMapping("/refresh") @UserOnly
     public ResponseEntity<RefreshTokenResponse> refreshToken(
             @RequestBody @Valid RefreshTokenRequest request) {
         return ResponseEntity.ok(RefreshTokenResponse.of(
