@@ -6,7 +6,7 @@ import com.erosnoxx.presenca.core.application.contracts.services.AuthenticatorSe
 import com.erosnoxx.presenca.core.application.dto.auth.TokenPair;
 import com.erosnoxx.presenca.core.application.usecases.auth.LoginUseCaseImpl;
 import com.erosnoxx.presenca.core.domain.entities.User;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserNotAuthenticatedException;
 import com.erosnoxx.presenca.core.domain.value_objects.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

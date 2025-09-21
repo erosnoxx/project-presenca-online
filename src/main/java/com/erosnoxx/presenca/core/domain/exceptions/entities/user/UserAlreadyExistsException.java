@@ -1,20 +1,20 @@
-package com.erosnoxx.presenca.core.domain.exceptions.entities;
+package com.erosnoxx.presenca.core.domain.exceptions.entities.user;
 
 import com.erosnoxx.presenca.core.domain.exceptions.common.DomainException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 
-public class UserNotFoundException extends DomainException {
+public class UserAlreadyExistsException extends DomainException {
     private final String detail;
 
-    public UserNotFoundException(String detail) {
+    public UserAlreadyExistsException(String detail) {
         this.detail = detail;
     }
 
     @Override
     public ProblemDetail toProblemDetail() {
-        var pb = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
-        pb.setTitle("user not found");
+        var pb = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        pb.setTitle("user already exists");
         pb.setDetail(detail);
 
         return pb;

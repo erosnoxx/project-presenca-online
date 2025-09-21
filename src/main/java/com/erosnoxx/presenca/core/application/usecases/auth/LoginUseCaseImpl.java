@@ -5,7 +5,7 @@ import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCo
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.services.AuthenticatorService;
 import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserNotAuthenticatedException;
 import org.springframework.stereotype.Service;
 
 @Service

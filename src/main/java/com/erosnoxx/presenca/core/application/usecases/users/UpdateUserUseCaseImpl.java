@@ -5,8 +5,8 @@ import com.erosnoxx.presenca.core.application.commands.output.common.UUIDOutputC
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.UpdateUserUseCase;
 import com.erosnoxx.presenca.core.domain.entities.User;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserAlreadyExistsException;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotFoundException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserAlreadyExistsException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserNotFoundException;
 import com.erosnoxx.presenca.core.domain.value_objects.Password;
 import com.erosnoxx.presenca.core.domain.value_objects.Username;
 import org.springframework.stereotype.Service;

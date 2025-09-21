@@ -3,7 +3,7 @@ package com.erosnoxx.presenca.unit.domain.entities;
 import com.erosnoxx.presenca.core.domain.checkers.UserChecker;
 import com.erosnoxx.presenca.core.domain.entities.User;
 import com.erosnoxx.presenca.core.domain.enums.Role;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserAlreadyExistsException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserAlreadyExistsException;
 import com.erosnoxx.presenca.unit.domain.factories.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -4,7 +4,7 @@ import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByIdInp
 import com.erosnoxx.presenca.core.application.commands.output.user.GetUserByIdOutputCommand;
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByIdUseCase;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotFoundException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

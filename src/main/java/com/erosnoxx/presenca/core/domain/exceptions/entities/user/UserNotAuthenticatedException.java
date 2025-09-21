@@ -1,4 +1,4 @@
-package com.erosnoxx.presenca.core.domain.exceptions.entities;
+package com.erosnoxx.presenca.core.domain.exceptions.entities.user;
 
 import com.erosnoxx.presenca.core.domain.exceptions.common.DomainException;
 import org.springframework.http.HttpStatus;

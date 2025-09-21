@@ -1,12 +1,10 @@
 package com.erosnoxx.presenca.core.application.usecases.users;
 
 import com.erosnoxx.presenca.core.application.commands.input.user.GetUserByUsernameInputCommand;
-import com.erosnoxx.presenca.core.application.commands.output.user.GetUserByIdOutputCommand;
 import com.erosnoxx.presenca.core.application.commands.output.user.GetUserByUsernameOutputCommand;
 import com.erosnoxx.presenca.core.application.contracts.repositories.UserRepository;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.GetUserByUsernameUseCase;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotFoundException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

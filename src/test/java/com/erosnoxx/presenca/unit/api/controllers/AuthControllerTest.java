@@ -7,7 +7,7 @@ import com.erosnoxx.presenca.core.application.commands.input.auth.LoginInputComm
 import com.erosnoxx.presenca.core.application.commands.output.auth.LoginOutputCommand;
 import com.erosnoxx.presenca.core.application.contracts.usecases.auth.LoginUseCase;
 import com.erosnoxx.presenca.core.application.contracts.usecases.auth.RefreshTokenUseCase;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserNotAuthenticatedException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserNotAuthenticatedException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.ResponseEntity;
