@@ -22,6 +22,7 @@ public class StudentEntity extends JpaEntity<UUID> {
     @JoinColumn(name = "classroom_id", nullable = false)
     private ClassroomEntity classroom;
 
-    @OneToMany(mappedBy = "students", orphanRemoval = true, cascade = CascadeType.REMOVE)
-    private List<AttendanceEntity> attendance;
+    @OneToMany(mappedBy = "student", orphanRemoval = true, cascade =
+            {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<AttendanceEntity> attendances;
 }

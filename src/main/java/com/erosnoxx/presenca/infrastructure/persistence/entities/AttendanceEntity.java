@@ -27,5 +27,5 @@ public class AttendanceEntity extends JpaEntity<UUID> {
 
     @ManyToOne
     @JoinColumn(name = "student_id", nullable = false)
-    private StudentEntity students;
+    private StudentEntity student;
 }
