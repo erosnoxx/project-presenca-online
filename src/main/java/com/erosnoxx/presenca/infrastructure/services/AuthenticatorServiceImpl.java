@@ -1,12 +1,11 @@
 package com.erosnoxx.presenca.infrastructure.services;
 
 import com.erosnoxx.presenca.core.application.contracts.services.AuthenticatorService;
-import com.erosnoxx.presenca.core.application.dto.TokenPair;
+import com.erosnoxx.presenca.core.application.dto.auth.TokenPair;
 import com.erosnoxx.presenca.infrastructure.config.auth.TokenService;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.UserEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,8 +25,14 @@ public class AuthenticatorServiceImpl implements AuthenticatorService {
         var usernamePassword = new UsernamePasswordAuthenticationToken(
                 username, password);
 
-        var auth = authenticationManager.authenticate(usernamePassword);
+        var auth = (UserEntity) authenticationManager
+                .authenticate(usernamePassword).getPrincipal();
 
-        return tokenService.generateToken((UserEntity) auth.getPrincipal());
+        return tokenService.generateToken(auth.getUsername());
+    }
+
+    @Override
+    public TokenPair renewToken(String refreshToken) {
+        return tokenService.refreshAccessToken(refreshToken);
     }
 }

@@ -31,7 +31,7 @@ public class UserEntity extends JpaEntity<UUID> implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return switch(role) {
             case ADMIN -> List.of(
-                    new SimpleGrantedAuthority("ROLE_ADMIN)"),
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_USER"));
             case USER -> List.of(
                     new SimpleGrantedAuthority("ROLE_USER"));

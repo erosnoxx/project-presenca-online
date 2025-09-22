@@ -5,13 +5,7 @@ public class SecurityMatcher {
         return new String[] {
                 "/swagger-ui/**",
                 "/v3/api-docs/**",
-                "/auth/**",
-        };
-    }
-
-    public static String[] getProtectedEndpoints() {
-        return new String[] {
-                "/users/**",
+                "/auth/login",
         };
     }
 }

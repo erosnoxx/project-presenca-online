@@ -3,7 +3,7 @@ package com.erosnoxx.presenca.core.domain.entities;
 import com.erosnoxx.presenca.core.domain.checkers.UserChecker;
 import com.erosnoxx.presenca.core.domain.entities.common.DomainEntity;
 import com.erosnoxx.presenca.core.domain.enums.Role;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.UserAlreadyExistsException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.user.UserAlreadyExistsException;
 import com.erosnoxx.presenca.core.domain.value_objects.Password;
 import com.erosnoxx.presenca.core.domain.value_objects.Username;
 import lombok.AllArgsConstructor;
