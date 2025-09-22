@@ -2,7 +2,6 @@
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- Tabela classrooms
 CREATE TABLE classrooms (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     class_name VARCHAR(100) NOT NULL,
@@ -10,7 +9,6 @@ CREATE TABLE classrooms (
     updated_at TIMESTAMP DEFAULT now()
 );
 
--- Tabela students
 CREATE TABLE students (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(150) NOT NULL,
@@ -23,7 +21,6 @@ CREATE TABLE students (
 
 CREATE INDEX idx_students_classroom ON students(classroom_id);
 
--- Tabela attendance
 CREATE TABLE attendance (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     date DATE NOT NULL,
