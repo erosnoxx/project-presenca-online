@@ -6,7 +6,6 @@ import com.erosnoxx.presenca.core.application.contracts.repositories.ClassroomRe
 import com.erosnoxx.presenca.core.application.contracts.usecases.classroom.CreateClassroomUseCase;
 import com.erosnoxx.presenca.core.domain.checkers.ClassroomChecker;
 import com.erosnoxx.presenca.core.domain.entities.Classroom;
-import com.erosnoxx.presenca.core.domain.exceptions.entities.classroom.ClassroomAlreadyExistsException;
 import org.springframework.stereotype.Service;
 
 @Service
