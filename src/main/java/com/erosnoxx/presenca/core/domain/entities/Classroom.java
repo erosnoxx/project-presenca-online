@@ -1,6 +1,8 @@
 package com.erosnoxx.presenca.core.domain.entities;
 
+import com.erosnoxx.presenca.core.domain.checkers.ClassroomChecker;
 import com.erosnoxx.presenca.core.domain.entities.common.DomainEntity;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.classroom.ClassroomAlreadyExistsException;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.student.StudentAlreadyExistsInClassRoomException;
 import com.erosnoxx.presenca.core.domain.value_objects.Name;
 import lombok.Getter;
@@ -21,6 +23,14 @@ public class Classroom extends DomainEntity<UUID> {
 
     public Classroom(Name className) {
         this.className = className;
+    }
+
+    public static Classroom create(String className, ClassroomChecker checker) {
+        if (!checker.isClassNameUnique(className))
+            throw new ClassroomAlreadyExistsException(
+                    "classroom with name: " + className + " already exists");
+
+        return new Classroom(Name.of(className));
     }
 
     public void addStudent(Student student) {
