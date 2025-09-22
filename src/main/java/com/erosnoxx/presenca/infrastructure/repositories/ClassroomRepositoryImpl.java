@@ -8,10 +8,12 @@ import com.erosnoxx.presenca.infrastructure.persistence.mappers.ClassroomMapper;
 import com.erosnoxx.presenca.infrastructure.persistence.repositories.ClassroomJpaRepository;
 import com.erosnoxx.presenca.infrastructure.repositories.common.RepositoryImpl;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
 public class ClassroomRepositoryImpl
         extends RepositoryImpl<Classroom, UUID, ClassroomCriteria, ClassroomEntity, ClassroomJpaRepository>
         implements ClassroomRepository {
