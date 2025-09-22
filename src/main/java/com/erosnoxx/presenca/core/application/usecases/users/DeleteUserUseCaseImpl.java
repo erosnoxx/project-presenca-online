@@ -16,10 +16,8 @@ public class DeleteUserUseCaseImpl implements DeleteUserUseCase {
 
     @Override
     public void execute(DeleteUserInputCommand input) {
-        var user = repository.findById(input.id())
+        repository.delete(repository.findById(input.id())
                 .orElseThrow(() -> new UserNotFoundException(
-                        "user not found with id: " + input.id()));
-
-        repository.delete(user);
+                        "user not found with id: " + input.id())));
     }
 }
