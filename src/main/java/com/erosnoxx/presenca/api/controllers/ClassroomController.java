@@ -1,14 +1,13 @@
 package com.erosnoxx.presenca.api.controllers;
 
 import com.erosnoxx.presenca.api.schemas.request.classroom.CreateClassroomRequest;
+import com.erosnoxx.presenca.api.schemas.request.classroom.UpdateClassroomRequest;
 import com.erosnoxx.presenca.api.schemas.response.common.UUIDResponse;
+import com.erosnoxx.presenca.core.application.commands.input.classroom.DeleteClassroomInputCommand;
 import com.erosnoxx.presenca.core.application.commands.input.classroom.GetClassroomByClassNameInputCommand;
 import com.erosnoxx.presenca.core.application.commands.input.classroom.GetClassroomByIdInputCommand;
 import com.erosnoxx.presenca.core.application.commands.input.classroom.GetClassroomsInputCommand;
-import com.erosnoxx.presenca.core.application.contracts.usecases.classroom.CreateClassroomUseCase;
-import com.erosnoxx.presenca.core.application.contracts.usecases.classroom.GetClassroomByClassNameUseCase;
-import com.erosnoxx.presenca.core.application.contracts.usecases.classroom.GetClassroomByIdUseCase;
-import com.erosnoxx.presenca.core.application.contracts.usecases.classroom.GetClassroomsUseCase;
+import com.erosnoxx.presenca.core.application.contracts.usecases.classroom.*;
 import com.erosnoxx.presenca.core.application.dto.entities.ClassroomDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
 import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
@@ -27,16 +26,22 @@ public class ClassroomController {
     private final GetClassroomsUseCase getClassroomsUseCase;
     private final GetClassroomByIdUseCase getClassroomByIdUseCase;
     private final GetClassroomByClassNameUseCase getClassroomByClassNameUseCase;
+    private final UpdateClassroomUseCase updateClassroomUseCase;
+    private final DeleteClassroomUseCase deleteClassroomUseCase;
 
     public ClassroomController(
             CreateClassroomUseCase createClassroomUseCase,
             GetClassroomsUseCase getClassroomsUseCase,
             GetClassroomByIdUseCase getClassroomByIdUseCase,
-            GetClassroomByClassNameUseCase getClassroomByClassNameUseCase) {
+            GetClassroomByClassNameUseCase getClassroomByClassNameUseCase,
+            UpdateClassroomUseCase updateClassroomUseCase,
+            DeleteClassroomUseCase deleteClassroomUseCase) {
         this.createClassroomUseCase = createClassroomUseCase;
         this.getClassroomsUseCase = getClassroomsUseCase;
         this.getClassroomByIdUseCase = getClassroomByIdUseCase;
         this.getClassroomByClassNameUseCase = getClassroomByClassNameUseCase;
+        this.updateClassroomUseCase = updateClassroomUseCase;
+        this.deleteClassroomUseCase = deleteClassroomUseCase;
     }
 
     @PostMapping @AdminOnly
@@ -60,13 +65,12 @@ public class ClassroomController {
                         .classrooms());
     }
 
-    @GetMapping("/id") @UserOnly
+    @GetMapping("/{id}") @UserOnly
     public ResponseEntity<ClassroomDto> getClassroomById(@PathVariable UUID id) {
         return ResponseEntity.ok(
                 getClassroomByIdUseCase.execute(GetClassroomByIdInputCommand
                                 .of(id))
-                        .classroom()
-        );
+                        .classroom());
     }
 
     @GetMapping("/search") @UserOnly
@@ -74,7 +78,22 @@ public class ClassroomController {
         return ResponseEntity.ok(
                 getClassroomByClassNameUseCase.execute(GetClassroomByClassNameInputCommand
                                 .of(className))
-                        .classroom()
-        );
+                        .classroom());
+    }
+
+    @PatchMapping("/{id}") @AdminOnly
+    public ResponseEntity<UUIDResponse> updateClassroom(
+            @PathVariable UUID id,
+            @RequestBody UpdateClassroomRequest request) {
+        return ResponseEntity.ok(
+                UUIDResponse.fromOutput(
+                        updateClassroomUseCase.execute(
+                                request.toInput(id))));
+    }
+
+    @DeleteMapping("/{id}") @AdminOnly
+    public ResponseEntity<Void> deleteClassroom(@PathVariable UUID id) {
+        deleteClassroomUseCase.execute(DeleteClassroomInputCommand.of(id));
+        return ResponseEntity.noContent().build();
     }
 }
