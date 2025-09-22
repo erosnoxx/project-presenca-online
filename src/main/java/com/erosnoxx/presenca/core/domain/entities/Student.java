@@ -51,14 +51,22 @@ public class Student extends DomainEntity<UUID> {
     }
 
     public double getAttendancePercentage(LocalDate start, LocalDate end) {
+        var effectiveStart = (start == null)
+                ? LocalDate.of(LocalDate.now().getYear(), 1, 1)
+                : start;
+
+        var effectiveEnd = (end == null)
+                ? LocalDate.now()
+                : end;
+
         long total = attendances.stream()
-                .filter(a -> a.belongsToPeriod(start, end))
+                .filter(a -> a.belongsToPeriod(effectiveStart, effectiveEnd))
                 .count();
 
         if (total == 0) return 0.0;
 
         long present = attendances.stream()
-                .filter(a -> a.belongsToPeriod(start, end) && a.isPresent())
+                .filter(a -> a.belongsToPeriod(effectiveStart, effectiveEnd) && a.isPresent())
                 .count();
 
         return (present * 100.0) / total;
