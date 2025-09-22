@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController @RequestMapping("classrooms")
 public class ClassroomController {
@@ -20,11 +21,15 @@ public class ClassroomController {
     }
 
     @PostMapping @AdminOnly
-    private ResponseEntity<UUIDResponse> createClassroom(
+    public ResponseEntity<UUIDResponse> createClassroom(
             @RequestBody @Valid CreateClassroomRequest request) {
-        return ResponseEntity.ok(UUIDResponse
-                .fromOutput(
-                        createClassroomUseCase.execute(
-                                request.toInput())));
+        var response = createClassroomUseCase.execute(request.toInput());
+        var location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response.id())
+                .toUri();
+
+        return ResponseEntity.created(location).body(UUIDResponse.fromOutput(response));
     }
 }
