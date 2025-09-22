@@ -8,6 +8,8 @@ import com.erosnoxx.presenca.infrastructure.persistence.mappers.ClassroomMapper;
 import com.erosnoxx.presenca.infrastructure.persistence.repositories.ClassroomJpaRepository;
 import com.erosnoxx.presenca.infrastructure.repositories.common.RepositoryImpl;
 import jakarta.persistence.EntityManager;
+
+import java.util.Optional;
 import java.util.UUID;
 
 public class ClassroomRepositoryImpl
@@ -18,5 +20,16 @@ public class ClassroomRepositoryImpl
             EntityManager em,
             ClassroomMapper mapper) {
         super(repository, em, mapper, ClassroomEntity.class);
+    }
+
+    @Override
+    public Optional<Classroom> findByClassName(String className) {
+        return repository.findByClassName(className)
+                .map(mapper::toDomain);
+    }
+
+    @Override
+    public boolean existsByClassName(String className) {
+        return repository.existsByClassName(className);
     }
 }
