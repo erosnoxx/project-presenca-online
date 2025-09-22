@@ -3,17 +3,13 @@ package com.erosnoxx.presenca.infrastructure.persistence.mappers;
 import com.erosnoxx.presenca.core.application.contracts.misc.EntityMapper;
 import com.erosnoxx.presenca.core.domain.entities.Student;
 import com.erosnoxx.presenca.core.domain.value_objects.Name;
-import com.erosnoxx.presenca.infrastructure.exceptions.EntityCannotBeMappedException;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.AttendanceEntity;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.ClassroomEntity;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.StudentEntity;
-import com.erosnoxx.presenca.infrastructure.persistence.entities.UserEntity;
 import com.erosnoxx.presenca.infrastructure.persistence.mappers.common.MapperUtils;
 import jakarta.persistence.EntityManager;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-@Slf4j
 @Component
 public class StudentMapper implements EntityMapper<Student, StudentEntity> {
     private final ClassroomMapper classroomMapper;

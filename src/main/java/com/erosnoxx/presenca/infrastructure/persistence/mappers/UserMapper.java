@@ -4,7 +4,6 @@ import com.erosnoxx.presenca.core.application.contracts.misc.EntityMapper;
 import com.erosnoxx.presenca.core.domain.entities.User;
 import com.erosnoxx.presenca.core.domain.value_objects.Password;
 import com.erosnoxx.presenca.core.domain.value_objects.Username;
-import com.erosnoxx.presenca.infrastructure.exceptions.EntityCannotBeMappedException;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.UserEntity;
 import com.erosnoxx.presenca.infrastructure.persistence.mappers.common.MapperUtils;
 import org.springframework.stereotype.Component;
