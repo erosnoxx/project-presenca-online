@@ -5,7 +5,7 @@ import com.erosnoxx.presenca.api.schemas.request.user.UpdateUserRequest;
 import com.erosnoxx.presenca.api.schemas.response.common.UUIDResponse;
 import com.erosnoxx.presenca.core.application.commands.input.user.*;
 import com.erosnoxx.presenca.core.application.contracts.usecases.users.*;
-import com.erosnoxx.presenca.core.application.dto.user.UserDto;
+import com.erosnoxx.presenca.core.application.dto.entities.UserDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
 import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.UserEntity;

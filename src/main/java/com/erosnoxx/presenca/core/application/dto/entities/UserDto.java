@@ -1,4 +1,4 @@
-package com.erosnoxx.presenca.core.application.dto.user;
+package com.erosnoxx.presenca.core.application.dto.entities;
 
 import com.erosnoxx.presenca.core.domain.entities.User;
 import com.erosnoxx.presenca.core.domain.enums.Role;
