@@ -1,6 +1,7 @@
 package com.erosnoxx.presenca.infrastructure.persistence.mappers;
 
 import com.erosnoxx.presenca.core.application.contracts.misc.EntityMapper;
+import com.erosnoxx.presenca.core.domain.entities.Classroom;
 import com.erosnoxx.presenca.core.domain.entities.Student;
 import com.erosnoxx.presenca.core.domain.value_objects.Name;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.AttendanceEntity;
@@ -12,22 +13,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StudentMapper implements EntityMapper<Student, StudentEntity> {
-    private final ClassroomMapper classroomMapper;
     private final AttendanceMapper attendanceMapper;
     private final EntityManager em;
 
     public StudentMapper(
-            ClassroomMapper classroomMapper,
             AttendanceMapper attendanceMapper,
             EntityManager em) {
-        this.classroomMapper = classroomMapper;
         this.attendanceMapper = attendanceMapper;
         this.em = em;
     }
 
     @Override
     public Student toDomain(StudentEntity persistence) {
-        MapperUtils.validate(persistence.getClass(), MapperUtils.MapperType.PERSISTENCE);
+        MapperUtils.validate(persistence, MapperUtils.MapperType.PERSISTENCE);
 
         var entity = new Student();
 
@@ -36,7 +34,14 @@ public class StudentMapper implements EntityMapper<Student, StudentEntity> {
         entity.setName(Name.of(persistence.getName()));
         entity.setRegistrationNumber(persistence.getRegistrationNumber());
 
-        entity.setClassroom(classroomMapper.toDomain(persistence.getClassroom()));
+        if (persistence.getClassroom() != null) {
+            var classRoom = new Classroom(Name.of(
+                    persistence.getClassroom().getClassName()));
+
+            MapperUtils.mapFromPersistence(classRoom, persistence.getClassroom());
+
+            entity.setClassroom(classRoom);
+        }
 
         if (persistence.getAttendances() != null) {
             entity.setAttendances(
@@ -51,7 +56,7 @@ public class StudentMapper implements EntityMapper<Student, StudentEntity> {
 
     @Override
     public StudentEntity toPersistence(Student domain) {
-        MapperUtils.validate(domain.getClass(), MapperUtils.MapperType.DOMAIN);
+        MapperUtils.validate(domain, MapperUtils.MapperType.DOMAIN);
 
         var entity = new StudentEntity();
 

@@ -21,7 +21,7 @@ public class ClassroomMapper implements EntityMapper<Classroom, ClassroomEntity>
 
     @Override
     public Classroom toDomain(ClassroomEntity persistence) {
-        MapperUtils.validate(persistence.getClass(), MapperUtils.MapperType.PERSISTENCE);
+        MapperUtils.validate(persistence, MapperUtils.MapperType.PERSISTENCE);
 
         var entity = new Classroom();
 
@@ -38,7 +38,7 @@ public class ClassroomMapper implements EntityMapper<Classroom, ClassroomEntity>
 
     @Override
     public ClassroomEntity toPersistence(Classroom domain) {
-        MapperUtils.validate(domain.getClass(), MapperUtils.MapperType.DOMAIN);
+        MapperUtils.validate(domain, MapperUtils.MapperType.DOMAIN);
 
         var entity = new ClassroomEntity();
 

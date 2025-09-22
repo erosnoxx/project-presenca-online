@@ -3,6 +3,7 @@ package com.erosnoxx.presenca.infrastructure.persistence.mappers;
 import com.erosnoxx.presenca.core.application.contracts.misc.EntityMapper;
 import com.erosnoxx.presenca.core.domain.entities.Attendance;
 import com.erosnoxx.presenca.core.domain.entities.Student;
+import com.erosnoxx.presenca.core.domain.value_objects.Name;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.AttendanceEntity;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.StudentEntity;
 import com.erosnoxx.presenca.infrastructure.persistence.mappers.common.MapperUtils;
@@ -19,7 +20,7 @@ public class AttendanceMapper implements EntityMapper<Attendance, AttendanceEnti
 
     @Override
     public Attendance toDomain(AttendanceEntity persistence) {
-        MapperUtils.validate(persistence.getClass(), MapperUtils.MapperType.PERSISTENCE);
+        MapperUtils.validate(persistence, MapperUtils.MapperType.PERSISTENCE);
 
         var entity = new Attendance();
 
@@ -28,14 +29,23 @@ public class AttendanceMapper implements EntityMapper<Attendance, AttendanceEnti
         entity.setDate(persistence.getDate());
         entity.setPresent(persistence.isPresent());
         entity.setReason(persistence.getReason());
-        entity.setStudent(new Student(persistence.getId()));
+
+        if (persistence.getStudent() != null) {
+            var student = new Student(
+                    Name.of(persistence.getStudent().getName()),
+                    persistence.getStudent().getRegistrationNumber());
+
+            MapperUtils.mapFromPersistence(student, persistence.getStudent());
+
+            entity.setStudent(student);
+        }
 
         return entity;
     }
 
     @Override
     public AttendanceEntity toPersistence(Attendance domain) {
-        MapperUtils.validate(domain.getClass(), MapperUtils.MapperType.DOMAIN);
+        MapperUtils.validate(domain, MapperUtils.MapperType.DOMAIN);
 
         var entity = new AttendanceEntity();
 

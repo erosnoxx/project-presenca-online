@@ -4,12 +4,12 @@ import com.erosnoxx.presenca.core.domain.entities.common.DomainEntity;
 import com.erosnoxx.presenca.infrastructure.exceptions.EntityCannotBeMappedException;
 import com.erosnoxx.presenca.infrastructure.persistence.entities.common.JpaEntity;
 
-import java.util.UUID;
 
 public class MapperUtils {
-    public static void validate(Class<?> reference, MapperType type) {
-        throw new EntityCannotBeMappedException(
-                type.name().toLowerCase() + " " + reference.getSimpleName() + " is null");
+    public static void validate(Object entity, MapperType type) {
+        if (entity == null)
+            throw new EntityCannotBeMappedException(
+                    type.name().toLowerCase() + " entity is null");
     }
 
     public static <I> void mapFromPersistence(

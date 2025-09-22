@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class UserMapper implements EntityMapper<User, UserEntity> {
     @Override
     public User toDomain(UserEntity persistence) {
-        MapperUtils.validate(persistence.getClass(), MapperUtils.MapperType.PERSISTENCE);
+        MapperUtils.validate(persistence, MapperUtils.MapperType.PERSISTENCE);
 
         var entity = new User();
 
@@ -27,7 +27,7 @@ public class UserMapper implements EntityMapper<User, UserEntity> {
 
     @Override
     public UserEntity toPersistence(User domain) {
-        MapperUtils.validate(domain.getClass(), MapperUtils.MapperType.DOMAIN);
+        MapperUtils.validate(domain, MapperUtils.MapperType.DOMAIN);
 
         var entity = new UserEntity();
 
