@@ -11,6 +11,10 @@ public class Name extends StringValueObject {
         super(value, MIN_LENGTH, MAX_LENGTH);
     }
 
+    public static Name of(String name) {
+        return new Name(name);
+    }
+
     @Override
     protected String customValidate(String value) {
         return value;

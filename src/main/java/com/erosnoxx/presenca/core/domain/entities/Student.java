@@ -21,6 +21,9 @@ public class Student extends DomainEntity<UUID> {
     private Classroom classroom;
     private List<Attendance> attendances = new ArrayList<>();
 
+    public Student(UUID id) {
+        setId(id);
+    }
 
     public Student(Name name, String registrationNumber) {
         this.name = name;
