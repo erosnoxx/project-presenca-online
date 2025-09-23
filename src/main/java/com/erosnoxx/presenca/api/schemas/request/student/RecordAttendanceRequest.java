@@ -23,4 +23,9 @@ public record RecordAttendanceRequest(
     private boolean isReasonValid() {
         return (isPresent && reason == null) || (!isPresent && reason != null);
     }
+
+    @AssertTrue(message = "attendance date cannot be in the future")
+    private boolean isDateValid() {
+        return date == null || !date.isAfter(LocalDate.now());
+    }
 }
