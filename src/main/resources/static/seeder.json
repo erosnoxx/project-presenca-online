@@ -2,5 +2,55 @@
   "admin": {
     "username": "eros.vieira",
     "password": "DevPwd1#"
-  }
+  },
+  "classrooms": [
+    {
+      "className": "1ºA"
+    },
+    {
+      "className": "2ºA"
+    }
+  ],
+  "students": [
+    {
+      "name": "Eros Gabriel Vieira Filho",
+      "registrationNumber": "777",
+      "className": "1ºA"
+    },
+    {
+      "name": "Ana Clara Souza",
+      "registrationNumber": "778",
+      "className": "1ºA"
+    },
+    {
+      "name": "João Pedro Lima",
+      "registrationNumber": "779",
+      "className": "1ºA"
+    },
+    {
+      "name": "Mariana Alves",
+      "registrationNumber": "780",
+      "className": "1ºA"
+    },
+    {
+      "name": "Lucas Martins",
+      "registrationNumber": "781",
+      "className": "2ºA"
+    },
+    {
+      "name": "Beatriz Oliveira",
+      "registrationNumber": "782",
+      "className": "2ºA"
+    },
+    {
+      "name": "Rafael Costa",
+      "registrationNumber": "783",
+      "className": "2ºA"
+    },
+    {
+      "name": "Camila Fernandes",
+      "registrationNumber": "784",
+      "className": "2ºA"
+    }
+  ]
 }

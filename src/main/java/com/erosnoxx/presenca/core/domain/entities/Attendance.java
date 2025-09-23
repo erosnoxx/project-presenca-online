@@ -13,9 +13,9 @@ import java.util.UUID;
 public class Attendance extends DomainEntity<UUID> {
 
     private boolean present;
-    private AbsenceReason reason;
     private Student student;
     private LocalDate date;
+    private AbsenceReason reason;
 
     public Attendance(boolean present, AbsenceReason reason, Student student, LocalDate date) {
         this.present = present;

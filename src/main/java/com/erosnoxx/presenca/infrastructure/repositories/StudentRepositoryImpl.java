@@ -22,4 +22,9 @@ public class StudentRepositoryImpl
             StudentMapper mapper) {
         super(repository, em, mapper, StudentEntity.class);
     }
+
+    @Override
+    public boolean existsByRegistrationNumber(String registrationNumber) {
+        return repository.existsByRegistrationNumber(registrationNumber);
+    }
 }

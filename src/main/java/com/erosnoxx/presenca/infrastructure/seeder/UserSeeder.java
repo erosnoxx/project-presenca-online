@@ -32,10 +32,7 @@ public class UserSeeder extends Seeder<UserEntity, UUID, UserJpaRepository> {
     @Override
     protected void seed() {
         loadSeederFile(seederFile);
-
-        var admin = getAsObject("admin", AdminProps.class);
-
-        createAdmin(admin);
+        createAdmin(getAsObject("admin", AdminProps.class));
     }
 
     private void createAdmin(AdminProps props) {
