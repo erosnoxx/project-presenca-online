@@ -11,6 +11,9 @@ import com.erosnoxx.presenca.infrastructure.persistence.mappers.common.MapperUti
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Component
 public class StudentMapper implements EntityMapper<Student, StudentEntity> {
     private final AttendanceMapper attendanceMapper;
@@ -47,7 +50,7 @@ public class StudentMapper implements EntityMapper<Student, StudentEntity> {
             entity.setAttendances(
                     persistence.getAttendances().stream()
                             .map(attendanceMapper::toDomain)
-                            .toList()
+                            .collect(Collectors.toCollection(ArrayList::new))
             );
         }
 
