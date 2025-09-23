@@ -8,6 +8,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.io.InputStream;
+import java.util.List;
 
 @Slf4j
 public abstract class Seeder<E, ID, R extends JpaRepository<E, ID>> implements CommandLineRunner {
@@ -60,6 +61,25 @@ public abstract class Seeder<E, ID, R extends JpaRepository<E, ID>> implements C
         } catch (Exception e) {
             log.error("❌ Failed to convert node {} to {}", path, clazz.getSimpleName(), e);
             return null;
+        }
+    }
+
+    protected <T> List<T> getAsList(String path, Class<T> clazz) {
+        if (rootNode == null) return List.of();
+
+        JsonNode node = rootNode;
+        for (String part : path.split("\\.")) {
+            if (node == null) return List.of();
+            node = node.get(part);
+        }
+
+        if (node == null || !node.isArray()) return List.of();
+
+        try {
+            return objectMapper.readerForListOf(clazz).readValue(node);
+        } catch (Exception e) {
+            log.error("❌ Failed to convert node {} to List<{}>", path, clazz.getSimpleName(), e);
+            return List.of();
         }
     }
 }
