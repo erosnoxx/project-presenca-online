@@ -20,6 +20,9 @@ public class Classroom extends DomainEntity<UUID> {
     private Name className;
     private List<Student> students = new ArrayList<>();
 
+    public Classroom(UUID id) {
+        this.setId(id);
+    }
 
     public Classroom(Name className) {
         this.className = className;

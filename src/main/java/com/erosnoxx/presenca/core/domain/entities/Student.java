@@ -1,17 +1,17 @@
 package com.erosnoxx.presenca.core.domain.entities;
 
+import com.erosnoxx.presenca.core.domain.checkers.StudentChecker;
 import com.erosnoxx.presenca.core.domain.entities.common.DomainEntity;
 import com.erosnoxx.presenca.core.domain.enums.AbsenceReason;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.attendance.AttendanceConsistencyException;
+import com.erosnoxx.presenca.core.domain.exceptions.entities.student.StudentAlreadyExistsInClassRoomException;
 import com.erosnoxx.presenca.core.domain.value_objects.Name;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter @Setter @NoArgsConstructor
 public class Student extends DomainEntity<UUID> {
@@ -28,6 +28,27 @@ public class Student extends DomainEntity<UUID> {
     public Student(Name name, String registrationNumber) {
         this.name = name;
         this.registrationNumber = registrationNumber;
+    }
+
+    public static Student create(String name, String registrationNumber, UUID classroomId, StudentChecker checker) {
+        if (!checker.isRegistrationNumberUnique(registrationNumber))
+            throw new StudentAlreadyExistsInClassRoomException("student already exists in classroom");
+
+        var student = new Student(
+                Name.of(name),
+                registrationNumber);
+        student.setClassroom(new Classroom(classroomId));
+
+        return student;
+    }
+
+    public void recordAttendance(LocalDate date, boolean present, AbsenceReason reason) {
+        Map<Boolean, Runnable> actions = Map.of(
+                true, () -> markPresence(date),
+                false, () -> markAbsence(date, reason)
+        );
+
+        actions.get(present).run();
     }
 
     public void markPresence(LocalDate date) {
