@@ -30,7 +30,9 @@ CREATE TABLE attendance (
     created_at TIMESTAMP DEFAULT now(),
     updated_at TIMESTAMP DEFAULT now(),
     CONSTRAINT fk_attendance_student FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
-    CONSTRAINT chk_reason CHECK (reason IN ('UNJUSTIFIED', 'SICKNESS'))
+    CONSTRAINT chk_reason CHECK (
+            (present = true AND reason IS NULL) OR
+            (present = false AND reason IN ('UNJUSTIFIED', 'SICKNESS')))
 );
 
 CREATE INDEX idx_attendance_student ON attendance(student_id);
