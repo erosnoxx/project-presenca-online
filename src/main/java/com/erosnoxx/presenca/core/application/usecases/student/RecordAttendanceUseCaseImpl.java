@@ -5,9 +5,10 @@ import com.erosnoxx.presenca.core.application.commands.output.common.UUIDOutputC
 import com.erosnoxx.presenca.core.application.contracts.repositories.StudentRepository;
 import com.erosnoxx.presenca.core.application.contracts.usecases.student.RecordAttendanceUseCase;
 import com.erosnoxx.presenca.core.domain.exceptions.entities.student.StudentNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service @Transactional
 public class RecordAttendanceUseCaseImpl implements RecordAttendanceUseCase {
     private final StudentRepository repository;
 
