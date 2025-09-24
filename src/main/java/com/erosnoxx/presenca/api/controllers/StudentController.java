@@ -2,11 +2,13 @@ package com.erosnoxx.presenca.api.controllers;
 
 import com.erosnoxx.presenca.api.schemas.request.student.CreateStudentRequest;
 import com.erosnoxx.presenca.api.schemas.request.student.RecordAttendanceRequest;
+import com.erosnoxx.presenca.api.schemas.request.student.UpdateStudentRequest;
 import com.erosnoxx.presenca.api.schemas.response.common.UUIDResponse;
 import com.erosnoxx.presenca.core.application.commands.input.student.CalculateAttendancePercentageInputCommand;
 import com.erosnoxx.presenca.core.application.contracts.usecases.student.CalculateAttendancePercentageUseCase;
 import com.erosnoxx.presenca.core.application.contracts.usecases.student.CreateStudentUseCase;
 import com.erosnoxx.presenca.core.application.contracts.usecases.student.RecordAttendanceUseCase;
+import com.erosnoxx.presenca.core.application.contracts.usecases.student.UpdateStudentUseCase;
 import com.erosnoxx.presenca.core.application.dto.entities.StudentDto;
 import com.erosnoxx.presenca.infrastructure.annotations.AdminOnly;
 import com.erosnoxx.presenca.infrastructure.annotations.UserOnly;
@@ -23,14 +25,17 @@ public class StudentController {
     private final CreateStudentUseCase createStudentUseCase;
     private final RecordAttendanceUseCase recordAttendanceUseCase;
     private final CalculateAttendancePercentageUseCase calculateAttendancePercentageUseCase;
+    private final UpdateStudentUseCase updateStudentUseCase;
 
     public StudentController(
             CreateStudentUseCase createStudentUseCase,
             RecordAttendanceUseCase recordAttendanceUseCase,
-            CalculateAttendancePercentageUseCase calculateAttendancePercentageUseCase) {
+            CalculateAttendancePercentageUseCase calculateAttendancePercentageUseCase,
+            UpdateStudentUseCase updateStudentUseCase) {
         this.createStudentUseCase = createStudentUseCase;
         this.recordAttendanceUseCase = recordAttendanceUseCase;
         this.calculateAttendancePercentageUseCase = calculateAttendancePercentageUseCase;
+        this.updateStudentUseCase = updateStudentUseCase;
     }
 
     @PostMapping @AdminOnly
@@ -62,5 +67,13 @@ public class StudentController {
         return ResponseEntity.ok(
                 calculateAttendancePercentageUseCase.execute(
                         CalculateAttendancePercentageInputCommand.of(id, start, end)));
+    }
+
+    @PatchMapping("/{id}") @AdminOnly
+    public ResponseEntity<UUIDResponse> updateStudent(
+            @PathVariable UUID id,
+            @RequestBody UpdateStudentRequest request) {
+        return ResponseEntity.ok(UUIDResponse.fromOutput(
+                updateStudentUseCase.execute(request.toInput(id))));
     }
 }
