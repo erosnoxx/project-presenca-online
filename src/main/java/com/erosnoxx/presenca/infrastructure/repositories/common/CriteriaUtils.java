@@ -1,10 +1,12 @@
 package com.erosnoxx.presenca.infrastructure.repositories.common;
 
+import com.erosnoxx.presenca.core.application.annotations.CriteriaField;
 import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.RecordComponent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,17 +19,24 @@ public class CriteriaUtils {
     ) {
         List<Predicate> predicates = new ArrayList<>();
 
-        for (Method method : criteria.getClass().getDeclaredMethods()) {
-            if (method.getParameterCount() != 0) continue;
+        for (RecordComponent component : criteria.getClass().getRecordComponents()) {
+            CriteriaField annotation = component.getAnnotation(CriteriaField.class);
+            if (annotation == null) continue; // pega só os anotados
 
             try {
-                Object value = method.invoke(criteria);
-                if (value != null) {
-                    String fieldName = method.getName();
-                    predicates.add(cb.equal(root.get(fieldName), value));
+                Object value = component.getAccessor().invoke(criteria);
+                if (value == null) continue;
+
+                String[] pathParts = annotation.value().split("\\.");
+                Path<Object> path = root.get(pathParts[0]);
+                for (int i = 1; i < pathParts.length; i++) {
+                    path = path.get(pathParts[i]);
                 }
+
+                predicates.add(cb.equal(path, value));
+
             } catch (Exception e) {
-                throw new RuntimeException("error building predicates", e);
+                throw new RuntimeException("error building predicates for " + component.getName(), e);
             }
         }
 

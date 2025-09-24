@@ -9,6 +9,9 @@ import com.erosnoxx.presenca.infrastructure.persistence.mappers.common.MapperUti
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 @Component
 public class ClassroomMapper implements EntityMapper<Classroom, ClassroomEntity> {
     private final StudentMapper studentMapper;
@@ -31,7 +34,8 @@ public class ClassroomMapper implements EntityMapper<Classroom, ClassroomEntity>
         if (entity.getStudents() != null)
             entity.setStudents(persistence.getStudents()
                     .stream().map(studentMapper::toDomain)
-                    .toList());
+                    .collect(Collectors.toCollection(ArrayList::new))
+            );
 
         return entity;
     }
